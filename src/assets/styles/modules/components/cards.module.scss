@@ -1,0 +1,33 @@
+@use "../../var" as *;
+@use "../../function" as *;
+
+.cards {
+    align-items: flex-start;
+    display: grid;
+    gap: calcOutValue(20);
+    grid-template-columns: repeat(4, minmax(200px, calc(25% - calcOutValue(15))));
+}
+
+@media(max-width: 1200px) {
+    .cards {
+        grid-template-columns: repeat(3, minmax(200px, calc(33.333% - calcOutValue(15))));
+    }
+}
+
+@media(max-width: 740px) {
+    .cards {
+        grid-template-columns: repeat(2, minmax(200px, calc(50% - calcOutValue(10))));
+    }
+}
+
+@media(max-width: 470px) {
+    .cards {
+        grid-template-columns: repeat(2, minmax(160px, calc(50% - calcOutValue(10))));
+    }
+}
+
+@media(max-width: 400px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}

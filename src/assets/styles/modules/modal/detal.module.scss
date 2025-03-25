@@ -1,0 +1,18 @@
+@use "../../var" as *;
+@use "../../function" as *;
+
+.detal {
+    border-radius: calcOutValue(20);
+    background: var(--white-color);
+    padding: calcOutValue(20) calcOutValue(14) calcOutValue(14);
+    max-width: calcOutValue(790);
+    width: 100%;
+
+    &_main {
+        margin-top: 33px;
+    }
+
+    &_bot {
+        margin-top: 8px;
+    }
+}

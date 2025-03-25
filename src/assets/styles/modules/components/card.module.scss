@@ -1,0 +1,106 @@
+@use "../../var" as *;
+@use "../../function" as *;
+
+.card {
+    display: grid;
+    gap: calcOutValue(12);
+    padding: calcOutValue(6) calcOutValue(5);
+    border-radius: calcOutValue(16);
+    background: var(--white-color);
+
+    &_top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: calcOutValue(14);
+
+        &_left {
+            display: flex;
+            align-items: center;
+            gap: calcOutValue(6);
+        }
+
+        &_right {
+            width: calcOutValue(30);
+            min-width: calcOutValue(30);
+            height: calcOutValue(30);
+            border-radius: 50%;
+            transition: 0.3s linear;
+            cursor: pointer;
+
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+
+            &:hover {
+                background: var(--light-yellow);
+            }
+        }
+    }
+
+    &_avatar {
+        width: calcOutValue(30);
+        min-width: calcOutValue(30);
+        height: calcOutValue(30);
+        border-radius: 50%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border: 0.774px solid var(--mol-color);
+    }
+
+    &_detal {
+        &_name {
+            color: rgba(0, 0, 0, 0.80);
+            font-size: calcOutValue(13);
+            font-weight: 700;
+            line-height: normal;
+            overflow: hidden;
+            max-width: calcOutValue(140);
+            white-space: nowrap; 
+            text-overflow: ellipsis;
+        }
+
+        &_nick {
+            color: rgba(0, 0, 0, 0.30);
+            font-size: calcOutValue(11);
+            line-height: normal;
+        }
+    }
+
+    &_image {
+        border-radius: calcOutValue(13);
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 84%;
+        cursor: pointer;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+@media(max-width: 470px) {
+    .card_avatar {
+        width: 24px;
+        min-width: 24px;
+        height: 24px;
+    }
+
+    .card_detal_name {
+        max-width: 100px;
+    }
+
+    .card_top_right {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+    }
+}

@@ -1,0 +1,11 @@
+@function calcOutValue($inpx, $desingFontSize: 16) {
+    @return calc($inpx/$desingFontSize)*1rem;
+}
+
+@function defFronVw($makerFont, $desingWidth) {
+    @return calc($makerFont / ($desingWidth / 100))*1vw;
+}
+
+@function calcVw($desingWidth) {
+    @return calc($desingWidth/19.2)*1vw;
+}

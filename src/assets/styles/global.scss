@@ -1,0 +1,61 @@
+@use "./var" as *;
+@use "./function" as *;
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    background: var(--bg-color);
+    line-height: 1.4;
+    color: var(--black-color);
+    font-family: 'Helvetica Neue'
+}
+
+button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    &:disabled {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+a,
+button {
+    cursor: pointer;
+    transition: 0.2s linear;
+    font-weight: 400;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+@media (min-width: 1729px) and (max-width: 1999px) {
+    html {
+        font-size: defFronVw(16, 1728);
+    }
+}
+
+@media (min-width: 2000px) {
+    html {
+        font-size: 18px;
+    }
+}

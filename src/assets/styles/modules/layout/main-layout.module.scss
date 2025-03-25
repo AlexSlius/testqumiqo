@@ -1,0 +1,68 @@
+@use "../../var" as *;
+@use "../../function" as *;
+
+.grid_layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    border-bottom: 1px solid var(--mol-color);
+}
+
+.header,
+.footer {
+    text-align: center;
+    font-size: calcOutValue(14);
+    padding: calcOutValue(14) calcOutValue(40);
+    background: var(--white-color);
+}
+
+.wr {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.left_contet {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.aside {
+    padding: calcOutValue(30) calcOutValue(25) calcOutValue(30) calcOutValue(30);
+    border-left: 1px solid var(--mol-color);
+    background: var(--white-color);
+    min-width: calcOutValue(256);
+    max-width: calcOutValue(256);
+}
+
+.footer {
+    margin-top: calcOutValue(70);
+    position: relative;
+    z-index: 20;
+    margin-right: -2px;
+}
+
+.main {
+    flex: 1 1 auto;
+    padding: calcOutValue(30) calcOutValue(40) 0;
+}
+
+@media(max-width: 1200px) {
+    .main {
+        padding: calcOutValue(22) calcOutValue(14);
+    }
+}
+
+@media(max-width: 992px) {
+    .aside {
+        display: none;
+    }
+
+    .footer {
+        margin-top: calcOutValue(30);
+        margin-right: 0;
+    }
+}
