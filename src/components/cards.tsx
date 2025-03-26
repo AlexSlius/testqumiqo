@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Card } from "./card"
-
-import style from "../assets/styles/modules/components/cards.module.scss"
+import { Card } from "./card";
+import style from "../assets/styles/modules/components/cards.module.scss";
 import { ModalDetal } from "./modal/detal";
 
 const fetchPosts = async (page: number) => {
@@ -21,79 +20,72 @@ const fetchPosts = async (page: number) => {
     return res.json();
 };
 
-export const Cards = ({
-    dataPost = []
-}: {
-    dataPost: any // didn't waste time describing the type
-}) => {
-    const [page, setPage] = useState<number>(1);
-    const [dataModal, setDataModal] = useState<{
-        show: boolean;
-        data: any;
-    }>({
-        show: false,
-        data: null
+export const Cards = ({ dataPost }: { dataPost: any }) => {
+    const [posts, setPosts] = useState<{ data: any[]; meta: { page: number; totalPages: number } }>({
+        data: [],
+        meta: { page: 1, totalPages: 1 },
     });
+    const [page, setPage] = useState<number>(1);
+    const [dataModal, setDataModal] = useState<{ show: boolean; data: any }>({
+        show: false,
+        data: null,
+    });
+    const isFetching = useRef<boolean>(false);
 
     const { data, isLoading, refetch } = useQuery({
-        queryKey: ["posts", 1],
+        queryKey: ["posts", page],
         queryFn: () => fetchPosts(page),
         enabled: false,
         initialData: dataPost,
     });
 
     const hCloseModal = () => {
-        setDataModal({
-            show: false,
-            data: null,
-        })
-    }
+        setDataModal({ show: false, data: null });
+    };
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollHeight = document.documentElement.scrollHeight;
-            const scrollTop = document.documentElement.scrollTop;
-            const clientHeight = document.documentElement.clientHeight;
-
-            if ((scrollHeight - scrollTop - clientHeight < 20) && !isLoading) {
+            const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+            if (scrollHeight - scrollTop - clientHeight < 100 && !isFetching.current && page < posts.meta.totalPages) {
+                isFetching.current = true;
                 setPage((prev) => prev + 1);
             }
         };
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [isFetching, page, posts.meta.totalPages]);
 
     useEffect(() => {
         if (page > 1) {
-            refetch()
+            refetch().then(() => isFetching.current = false);
         }
     }, [page]);
+
+    useEffect(() => {
+        if (data) {
+            setPosts((prev) => ({
+                data: [...prev.data, ...data.data],
+                meta: data.meta,
+            }));
+        }
+    }, [data]);
 
     return (
         <Fragment>
             <div className={style.cards}>
-                {
-                    data.map((item: any, index: number) => (
-                        <Card
-                            key={index}
-                            dataCard={item}
-                            handleOpenDetal={(data: any) => {
-                                setDataModal({
-                                    show: true,
-                                    data,
-                                })
-                            }}
-                        />
-                    ))
-                }
+                {posts.data.map((item, index) => (
+                    <Card
+                        key={index}
+                        dataCard={item}
+                        handleOpenDetal={(data: any) => setDataModal({ show: true, data })}
+                    />
+                ))}
             </div>
 
-            <ModalDetal
-                showStatus={dataModal.show}
-                dataModal={dataModal.data}
-                hClose={hCloseModal}
-            />
+            {isLoading && <p>Loading...</p>}
+
+            <ModalDetal showStatus={dataModal.show} dataModal={dataModal.data} hClose={hCloseModal} />
         </Fragment>
-    )
-}
+    );
+};

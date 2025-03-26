@@ -7,7 +7,7 @@ export const IconSprite = ({
 }) => {
     return (
         <svg className={classNames ? classNames.join(" ") : ""}>
-            <use xlinkHref={`/icons/sprite.svg#${id}`}></use>
+            <use xlinkHref={`/icons/sprite1.svg#${id}`}></use>
         </svg>
     );
 };

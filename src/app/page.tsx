@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <LayoutMain>
-      <Cards dataPost={dataPost.data} />
+      <Cards dataPost={dataPost} />
     </LayoutMain>
   );
 }
