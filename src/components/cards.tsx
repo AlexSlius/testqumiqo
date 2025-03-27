@@ -7,17 +7,18 @@ import style from "../assets/styles/modules/components/cards.module.scss";
 import { ModalDetal } from "./modal/detal";
 
 const fetchPosts = async (page: number) => {
-    const res = await fetch(
-        `https://api.qumiqo.sontam.xyz/api/posts?_limit=16&type=newest&page=${page}`, {
-        headers: { "Content-Type": "application/json" },
-    }
-    );
+    try {
+        const res = await fetch(`https://api.qumiqo.sontam.xyz/api/posts?_limit=16&type=newest&page=${page}`);
 
-    if (!res.ok) {
-        throw new Error("Network response was not ok");
-    }
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
 
-    return res.json();
+        return res.json();
+    } catch (error) {
+        console.error("Fetch error:", error);
+        return { data: [], meta: { page: 1, totalPages: 1 } };
+    }
 };
 
 export const Cards = ({ dataPost }: { dataPost: any }) => {

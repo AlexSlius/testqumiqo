@@ -10,14 +10,23 @@ export async function generateMetadata() {
   }
 }
 
-export default async function Home() {
-  const resPost = await fetch(`https://api.qumiqo.sontam.xyz/api/posts?_limit=16&type=newest&page=1`);
+const fetchPosts = async () => {
+  try {
+    const res = await fetch(`https://api.qumiqo.sontam.xyz/api/posts?_limit=16&type=newest&page=1`);
 
-  if (!resPost.ok) {
-    throw new Error('Network response was not ok');
+    if (!res.ok) {
+      throw new Error(`Failed to fetch, status: ${res.status}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { data: [], meta: { page: 1, totalPages: 1 } };
   }
+};
 
-  const dataPost = await resPost.json();
+export default async function Home() {
+  const dataPost = await fetchPosts();
 
   return (
     <LayoutMain>
