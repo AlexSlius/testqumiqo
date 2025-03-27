@@ -10,10 +10,6 @@ const fetchPosts = async (page: number) => {
     try {
         const res = await fetch(`https://api.qumiqo.sontam.xyz/api/posts?_limit=16&type=newest&page=${page}`);
 
-        if (!res.ok) {
-            throw new Error("Network response was not ok");
-        }
-
         return res.json();
     } catch (error) {
         console.error("Fetch error:", error);
