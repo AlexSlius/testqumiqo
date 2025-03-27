@@ -22,7 +22,7 @@ const fetchPosts = async () => {
 };
 
 export default async function Home() {
-  const dataPost = fetchPosts();
+  const dataPost = await fetchPosts();
 
   return (
     <LayoutMain>
