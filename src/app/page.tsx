@@ -12,9 +12,7 @@ export async function generateMetadata() {
 
 const fetchPosts = async () => {
   try {
-    const res = await fetch(`https://api.qumiqo.sontam.xyz/api/posts?_limit=16&type=newest&page=1`);
-
-    console.log('res: ', res);
+    const res = await fetch(`https://api.qumiqo.com/api/posts?_limit=16&type=newest&page=1`);
 
     return res.json();
   } catch (error) {

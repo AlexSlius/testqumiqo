@@ -8,7 +8,7 @@ import { ModalDetal } from "./modal/detal";
 
 const fetchPosts = async (page: number) => {
     try {
-        const res = await fetch(`https://api.qumiqo.sontam.xyz/api/posts?_limit=16&type=newest&page=${page}`);
+        const res = await fetch(`https://api.qumiqo.com/api/posts?_limit=16&type=newest&page=${page}`);
 
         return res.json();
     } catch (error) {
