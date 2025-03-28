@@ -25,7 +25,7 @@ export const Card = ({
             </div>
             <div className={style.card_image} title={dataCard.title} onClick={() => handleOpenDetal(dataCard)}>
                 <Image
-                    src={`https://api.qumiqo.sontam.xyz/${dataCard.preview.thumbnail.filename}`}
+                    src={`https://api.qumiqo.com/${dataCard.preview.thumbnail.filename}`}
                     width={323}
                     height={270}
                     alt=""
